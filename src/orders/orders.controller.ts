@@ -11,9 +11,9 @@ import {
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/createOrder.dto';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { Role } from 'src/roles/role.enum';
-import { Roles } from 'src/roles/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
+import { Role } from 'src/auth/roles/roles';
+import { Roles } from 'src/auth/decorator/role.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 //Token required
