@@ -8,13 +8,11 @@ import { Model } from 'mongoose';
 import { IProduct } from './interface/products.interface';
 import { Product, IProductDocument } from './schemas/product.schema';
 import { CreateProductDto, UpdateProductDto } from './dto';
-import { MailerService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<IProductDocument>,
-    private mailer: MailerService,
   ) {}
 
   async getAllProducts(): Promise<IProduct[]> {

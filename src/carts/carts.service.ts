@@ -13,7 +13,7 @@ import { CreateCartDto, UpdateCartDto } from './dto';
 import { Cart, ICartDocument } from './schemas/cart.schema';
 
 @Injectable()
-export class CartService {
+export class CartsService {
   @Inject(forwardRef(() => OrdersService)) private ordersService: OrdersService;
   @Inject(forwardRef(() => UsersService)) private usersService: UsersService;
 
@@ -22,18 +22,21 @@ export class CartService {
   ) {}
 
   async createCart(createCartDto: CreateCartDto) {
-    const checkOrder = await this.ordersService.getOrderById(
-      createCartDto.order,
-    );
-    if (!checkOrder) {
-      throw new NotFoundException('Order not found');
-    }
+    // const checkOrder = await this.ordersService.getOrderById(
+    //   createCartDto['order'],
+    // );
+    // console.log(checkOrder);
+    // if (!checkOrder) {
+    //   throw new NotFoundException('Order not found');
+    // }
 
-    const checkUser = await this.usersService.getUserById(createCartDto.user);
-    if (!checkUser) {
-      throw new NotFoundException('User not found');
-    }
-
+    // const checkUser = await this.usersService.getUserById(createCartDto.user);
+    // if (!checkUser) {
+    //   throw new NotFoundException('User not found');
+    // }
+    console.log(createCartDto.user);
+    console.log(createCartDto.order);
+    console.log(createCartDto);
     try {
       const cart = await this.cartModel.create(createCartDto);
       return { cart, message: 'Cart created successfully' };

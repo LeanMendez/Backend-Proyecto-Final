@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   forwardRef,
+  HttpException,
   Inject,
   Injectable,
   NotFoundException,
@@ -10,7 +11,7 @@ import { Model } from 'mongoose';
 import { ProductsService } from 'src/products/products.service';
 import { UsersService } from 'src/users/users.service';
 import { CreateOrderDto, UpdateOrderDto } from './dto';
-import { Order } from './schemas/order.schema';
+import { IOrderDocument, Order } from './schemas/order.schema';
 
 @Injectable()
 export class OrdersService {
@@ -18,12 +19,13 @@ export class OrdersService {
   @Inject(forwardRef(() => ProductsService))
   private productService: ProductsService;
 
-  constructor(@InjectModel(Order.name) private orderModel: Model<any>) {}
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<IOrderDocument>,
+  ) {}
 
   async getAllOrders() {
     try {
-      const orders = await this.orderModel.find();
-      return orders;
+      return await this.orderModel.find();
     } catch (err) {
       throw new NotFoundException(err);
     }
@@ -31,10 +33,11 @@ export class OrdersService {
 
   async getOrderById(id: string) {
     try {
-      const order = await this.orderModel.findOne({ _id: id });
-      return order;
+      return await this.orderModel.findById({ _id: id });
     } catch (err) {
-      throw new BadRequestException(err);
+      throw new HttpException({ message: 'error al buscar la orden' }, 400, {
+        cause: new Error('Order by ID error'),
+      });
     }
   }
 

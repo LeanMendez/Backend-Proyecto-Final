@@ -5,5 +5,6 @@ import { BcryptService } from './bcrypt.service';
 @Module({
   imports: [forwardRef(() => AuthModule)],
   providers: [BcryptService],
+  exports: [BcryptService],
 })
 export class BcryptModule {}

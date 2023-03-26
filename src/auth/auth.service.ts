@@ -23,11 +23,19 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.usersService.getUserByEmail(dto.email);
-    if (!user)
+
+    if (!user) {
       throw new UnauthorizedException('Incorrect credentials user not found');
-    if (user.password !== dto.password)
+    }
+    const comparePass = await this.bcryptService.comparePass(
+      dto.password,
+      user.password,
+    );
+    if (!comparePass) {
       throw new UnauthorizedException('Incorrect credentials wrong pass');
-    return this.signUser(user.id, user.email, user.role);
+    } else {
+      return this.signUser(user.id, user.email, user.role);
+    }
   }
 
   async register(dto: RegisterDto) {

@@ -12,7 +12,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { Role } from 'src/auth/roles/roles';
 import { Roles } from 'src/auth/decorator/role.decorator';
-import { CartService } from './carts.service';
+import { CartsService } from './carts.service';
 import { CreateCartDto } from './dto/createCart.dto';
 import { UpdateCartDto } from './dto/updateCart.dto';
 
@@ -21,21 +21,22 @@ import { UpdateCartDto } from './dto/updateCart.dto';
 @ApiBearerAuth()
 @Controller('cart')
 export class CartController {
-  constructor(private readonly cartService: CartService) {}
+  constructor(private readonly cartsService: CartsService) {}
 
   @Get()
   GetAllCarts() {
-    return this.cartService.getAllCarts();
+    return this.cartsService.getAllCarts();
   }
 
   @Get(':id')
   getCartById(@Param('id') id: string) {
-    return this.cartService.getCartById(id);
+    return this.cartsService.getCartById(id);
   }
 
   @Post()
   createCart(@Body() createCartDto: CreateCartDto) {
-    return this.cartService.createCart(createCartDto);
+    console.log('createCart - CONTROLLER', createCartDto);
+    return this.cartsService.createCart(createCartDto);
   }
 
   @Put(':id')
@@ -43,12 +44,12 @@ export class CartController {
     @Param('id') id: string,
     @Body() updateCartDto: UpdateCartDto,
   ) {
-    return this.cartService.updateCartById(id, updateCartDto);
+    return this.cartsService.updateCartById(id, updateCartDto);
   }
 
   @Delete(':id')
   @Roles(Role.ADMIN)
   deleteCartById(@Param('id') id: string) {
-    return this.cartService.deleteCartById(id);
+    return this.cartsService.deleteCartById(id);
   }
 }

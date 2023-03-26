@@ -7,7 +7,9 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { RoleAuthGuard } from 'src/auth/guards/roleAuth.guard';
 import { CreateProductDto, UpdateProductDto } from './dto';
 import { IProduct } from './interface/products.interface';
 import { ProductsService } from './products.service';
@@ -44,7 +46,7 @@ export class ProductsController {
       throw new BadRequestException(err);
     }
   }
-
+  @UseGuards(RoleAuthGuard)
   @Post()
   async createProduct(@Body() dto: CreateProductDto) {
     try {
@@ -53,7 +55,7 @@ export class ProductsController {
       throw new BadRequestException(err);
     }
   }
-
+  @UseGuards(RoleAuthGuard)
   @Patch('/:id')
   async updateProductById(
     @Param('id') id: string,
@@ -66,7 +68,7 @@ export class ProductsController {
       throw new BadRequestException(err);
     }
   }
-
+  @UseGuards(RoleAuthGuard)
   @Delete('/:id')
   async deleteProductById(@Param('id') id: string) {
     try {

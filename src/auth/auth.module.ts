@@ -18,11 +18,13 @@ import { BcryptModule } from 'src/bcrypt/bcrypt.module';
     JwtModule.register({
       secret: JWT_SECRET,
       signOptions: {
-        expiresIn: '6hs',
+        // eslint-disable-next-line prettier/prettier
+        expiresIn: "6h",
       },
     }),
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}
