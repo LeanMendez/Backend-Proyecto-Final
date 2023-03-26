@@ -1,30 +1,18 @@
-<p align="center">
+<h1 align="center">FINAL PROJECT - CODERHOUSE BACKEND COURSE</h1><p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
+  <p align="center">Project developed with <a href="http://nestjs.com" target="_blank">Nest.js</a></p><p align="center"><i>"a progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications".</i></p>
+    
+  
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is the final project for CoderHouse Backend course. 
+
+It's a Nest.js REST API that simulate the backend of a books ecommerce, with diferents entities, where you can register as user and generate a shopping order and manage your own cart with books. 
 
 ## Installation
 
@@ -44,30 +32,122 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
+# DEPLOY
 
-## Test
 
-```bash
-# unit tests
-$ pnpm run test
 
-# e2e tests
-$ pnpm run test:e2e
+# ENDPOINTS
 
-# test coverage
-$ pnpm run test:cov
-```
+Endpoint list for the services provided
 
-## Support
+</br>
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## AUTH with JWT
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### POST `/auth/register`
 
-## License
+**Parameters in body**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+| `email`        | required | string  |  user email
+| `password`        | required | string  |  user password
+| `firstName` | required | string  |  user first name
+| `lastName`        | required | string  |  user last name
+| `role`       | required | 'user' or 'admin'  |  user role 
 
-Nest is [MIT licensed](LICENSE).
+### POST `/auth/login`
+
+**Parameters in body**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+| `email`        | required | string  |  user email
+| `password`        | required | string  |  user password
+
+<br/>
+
+## PRODUCTS
+
+### GET `/productos`
+
+### GET `/productos/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  product's ID
+
+### POST `/productos`
+**Parameters in body**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+| `title`        | required | string  |  product's name
+| `description` | required | string  |  product's description
+| `category`        | required | string  |  product's category
+| `photoURL`       | required | string  |  product's image
+| `price`       | required | number  |  product's price
+| `quantity`       | required | number  |  stock quantity 
+
+### UPDATE `/productos/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  updated product's ID
+|     `{data}`  | optional |         |  update data
+
+### DELETE `/productos/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  deleted product's ID
+
+ <br/>
+
+## CARTS
+
+### GET `/cart`
+
+### GET `/cart/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  cart's ID
+
+### POST `/cart/`
+
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `user`  | required | string  |  user mongo ID
+|         `order`  | required | string  |  order mongo ID
+
+### DELETE `/cart/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  deleted cart's ID
+
+</br>
+
+## ORDERS
+
+### GET `/order`
+
+### GET `/order/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  order's ID
+
+### POST `/order/`
+
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `user`  | required | string  |  user mongo ID
+|         `products`  | required | Products['id']  |  Array de IDs de productos
+
+### DELETE `/order/{id}`
+**Parameters**
+|          Name | Required |  Type   | Description 
+| -------------:|:--------:|:-------:| --------------------------------|
+|         `id`  | required | string  |  deleted order's ID
