@@ -34,7 +34,7 @@ $ pnpm run start:prod
 ```
 # DEPLOY
 
-
+https://coderbackend-proyecto-final.up.railway.app
 
 # ENDPOINTS
 
